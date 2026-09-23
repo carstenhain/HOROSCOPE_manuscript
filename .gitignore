@@ -1,0 +1,27 @@
+# Python cache directories
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Python tool caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+
+# Coverage outputs
+.coverage
+.coverage.*
+htmlcov/
+
+# Local SLURM helper script
+kmer_generation/run_fasta_to_kmers_slurm.sh
+kmer_generation/_extract_kmer_from_h5.sh
+kmer_generation/centromere_clustering/_example.ipynb
