@@ -1,52 +1,49 @@
 # HOROSCOPE Manuscript
 
-Scripts and notebooks used for the manuscript *HOROSCOPE: Decoding human centromere architecture from short reads using k-mer signatures*.
+Scripts and notebooks used in the manuscript *HOROSCOPE: Decoding human centromere architecture from short reads using *k*-mer signatures*.
 
-## File Inventory
+## Project structure
 
-### CDR
+### [*k*-mer generation](./kmer_generation/README.md)
 
-| File | Description |
-| --- | --- |
-| `CDR/gao_hgsvc_cdr.ipynb` | Calculates CDR positions in HGSVC3 HOR arrays for haplogroup and cancer-breakpoint analyses. |
+Builds and aggregates centromere *k*-mer count matrices, creates the non-centromeric *k*-mer blacklist, and clusters reference centromeres by *k*-mer similarity. The `centromere_clustering` package identifies architecture-specific tagging *k*-mers and predicts centromere and HOR lengths.
 
-### Centromere annotation
+### [Centromere selection](./centromere_selection/README.md)
 
-| File | Description |
-| --- | --- |
-| `centromere_annotation/humas_annotation.py` | Annotates centromere FASTA sequences with HumAS and STV profiles and recolors HOR calls. |
+Extracts centromere sequences from T2T assemblies using alignments to flanking regions.
 
-### Centromere selection
+### [Centromere annotation](./centromere_annotation/README.md)
 
-| File | Description |
-| --- | --- |
-| `centromere_selection/get_centromeres_from_fasta.py` | Extracts centromere sequences from T2T genomes using flanking-region alignments. |
+Runs HumAS and STV annotation on centromere sequences to identify alpha-satellite higher-order repeats. The workflow harmonizes contig names and assigns HOR colours according to monomer count.
 
-### K-mer generation
+### [Model training](./model_training/README.md)
 
-| File | Description |
-| --- | --- |
-| `kmer_generation/README.md` | Documents the k-mer generation and clustering workflows. |
-| `kmer_generation/aggregate_kmers.py` | Combines k-mer counts from active centromeres on the same chromosome. |
-| `kmer_generation/fasta_to_kmers.py` | Converts FASTA sequences into 61-mers with configurable counting modes. |
-| `kmer_generation/make_kmer_blacklist.ipynb` | Builds a blacklist of non-centromeric 61-mers from the CHM13 reference. |
+Builds assembly-derived truth sets, normalizes *k*-mer counts, and trains models for centromere architecture and HOR-length prediction. It includes held-out-sample and mixed-versus-accurate assembly evaluations, with metrics recorded per chromosome and experiment.
 
-### Centromere clustering package
+### [Population analysis](./population_analysis/README.md)
 
-| File | Description |
-| --- | --- |
-| `kmer_generation/centromere_clustering/__init__.py` | Marks the centromere clustering workflow as a Python package. |
-| `kmer_generation/centromere_clustering/clustering.py` | Calculates Dice similarities, hierarchical clusters, and dendrogram node selections. |
-| `kmer_generation/centromere_clustering/config.py` | Defines chromosome-specific cluster identifiers and file paths. |
-| `kmer_generation/centromere_clustering/data.py` | Loads active centromeres and constructs and filters k-mer count matrices. |
-| `kmer_generation/centromere_clustering/length.py` | Predicts centromere and HOR lengths and finds normalization k-mers. |
-| `kmer_generation/centromere_clustering/output.py` | Writes tagging-k-mer results and sample-cluster membership tables. |
-| `kmer_generation/centromere_clustering/pipeline.py` | Provides the command-line entry point for the clustering workflow. |
-| `kmer_generation/centromere_clustering/plots.py` | Generates dendrogram and k-mer count distribution plots. |
-| `kmer_generation/centromere_clustering/tagging.py` | Finds cluster-tagging and relative k-mers from selected dendrogram nodes. |
+Analyses HOROSCOPE centromere architecture predictions across 1000 Genomes Project and Human Genome Diversity Project populations. Computes architecture diversity, missingness, multiple factor analysis results, and population SNP heterozygosity.
 
-### Model training
+### [ascairn comparison](./ascairn_comparison/README.md)
 
-| File | Description |
-| --- | --- |
-| `model_training/README.md` | Documents the k-mer model-training, held-out evaluation, and experiment-result workflows. |
+Runs ascairn on selected 1000 Genomes CRAM files through a Nextflow workflow. The analysis notebooks compare ascairn cluster and HOR-length calls with assembly-derived truth and HOROSCOPE predictions.
+
+### [Cancer analysis](./cancer/README.md)
+
+Aggregates and filters HOROSCOPE predictions from the PCAWG and PPCG cancer cohorts. It evaluates centromere changes in chromosome and chromosome-arm copy-number events, including relationships to centromere dip-region positions.
+
+### [CDR](./CDR/README.md)
+
+Calculates relative centromere dip-region (CDR) positions from HGSVC3 HOR annotations. The resulting CDR coordinates and metadata support haplogroup and cancer copy-number analyses.
+
+### [Plotting](./plotting/)
+
+Contains notebooks and generated manuscript figures. The figures summarize *k*-mer, population, ascairn-comparison, CDR, model-evaluation, and cancer-analysis results.
+
+### [Train/test splits](./train_test_splits/)
+
+Defines seeded 1kGP training and held-out sample sets for model development and evaluation. The accompanying notebook documents the strategy used to construct these splits.
+
+### [Reviewer questions](./reviewer_questions/)
+
+Contains analyses, input tables, and supplementary outputs prepared in response to reviewer requests. Subdirectories are organized by revision round and include experiments on assembly accuracy, leave-out evaluation, and *k*-mer origin.

@@ -32,24 +32,18 @@ kmer_generation/centromere_clustering/pipeline_accurate_haplotypes.py
 kmer_generation/centromere_clustering/run_pipeline_all_chromosomes_accurate_haplotypes.sbatch
 kmer_generation/centromere_clustering/run_pipeline_all_chromosomes_copy.sbatch
 
-train_samples_1kGP*.txt
-test_samples_1kGP*.txt
-
 model_training/model_training_loop.ipynb
 model_training/model_training_loop_leave_out.ipynb
 model_training/model_training_leave_out.ipynb
 model_training/model_training_loop_accurate_mixed.ipynb
-
-population_analysis/complete_population_predictions.tsv
-
-
-population_analysis/gr.small.bed
-
-plotting/plots/horoscope_metrics_train_test.tsv
-
 model_training/metrics/
 model_training/metrics_leave_out/
 model_training/metrics_accurate_mixed/
+
+population_analysis/complete_population_predictions.tsv
+population_analysis/gr.small.bed
+
+plotting/plots/horoscope_metrics_train_test.tsv
 
 reviewer_questions/*
 reviewer_questions/r_3_2/train_test_sets
@@ -61,4 +55,7 @@ CDR/alpha satellite higher order repeat annotation/
 
 cancer/pcawg_prediction.tsv
 cancer/ppcg_prediction.tsv
-cancer/
+
+plotting/plotting_data/df_gmm*
+train_test_splits/train_samples_1kGP_seed_0.txt
+train_test_splits/test_samples_1kGP_seed_0.txt
