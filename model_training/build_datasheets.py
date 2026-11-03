@@ -51,7 +51,7 @@ def gather_cluster_and_hor_haplotype (active_centromeres:pd.DataFrame, samples:l
         row_hp = row['ID'].split("_")[1].replace("P", "")   
         hor_len, hor_span = count_hor(clustering_config, row['ID'])
         sample_information.loc[(sample_information["SAMPLE"] == row_sample) & (sample_information["HP"] == row_hp), f"{chrom}_HOR_LENGTH"] = hor_len
-        
+
     return sample_information
 
 
@@ -83,6 +83,9 @@ def squash_sample_haplotypes(sample_information: pd.DataFrame, samples: list, ch
                 print(f"Error processing sample {sample}: {e}")
                 print(Z)
                 break
+        elif not (Z[f"{chrom}_HOR_LENGTH"] == -1).any(): # work with those samples without cluster but with HOR length
+            squashed_sample_information.loc[sample, f"{chrom}_MEAN_HOR_LENGTH"] = Z[f"{chrom}_HOR_LENGTH"].mean()
+            squashed_sample_information.loc[sample, f"{chrom}_CLUSTER_ID"] = "UNK"
         else:
             pass # this are the samples with only one complete centromere - all values are -1 for those samples
 

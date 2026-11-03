@@ -49,4 +49,4 @@ Scripts and notebooks used for the manuscript *HOROSCOPE: Decoding human centrom
 
 | File | Description |
 | --- | --- |
-| `model_training/test.py` | Empty placeholder for model-training tests or experiments. |
+| `model_training/README.md` | Documents the k-mer model-training, held-out evaluation, and experiment-result workflows. |

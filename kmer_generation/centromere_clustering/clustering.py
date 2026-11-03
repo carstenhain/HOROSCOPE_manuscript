@@ -70,7 +70,7 @@ def build_linkage(similarity):
     """Build the weighted linkage matrix used by the original workflow."""
     
     """
-    # cleaner solution would be to use squareform on the distances --> reorders the haplotypes --> functionally similiar results though
+    # other solution would be to use squareform on the distances
     distance_matrix = 1 - similarity
     np.fill_diagonal(distance_matrix, 0)
     condensed_distances = squareform(distance_matrix, checks=False)

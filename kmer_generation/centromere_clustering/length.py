@@ -80,9 +80,16 @@ def correlate_length_kmers(kmer_counts, length_vector, chromosome):
         correlations.append(correlation_analysis(kmer_counts[kmer], length_vector))
 
     kmer_correlations = pd.DataFrame({"KMER": kmer_columns, "R": correlations})
+    
+    ### select good length kmers 
     selected_kmers = kmer_correlations.loc[
         kmer_correlations["R"] > 0.75, "KMER"
     ].tolist() # type: ignore
+    # fallback to worse kmers if the correlation is bad
+    if len(selected_kmers) < 10:
+        selected_kmers = kmer_correlations.loc[
+                kmer_correlations["R"] > 0.5, "KMER"
+            ].tolist()
     return pd.DataFrame(
         {
             "KMER": selected_kmers,

@@ -11,7 +11,7 @@ def normalize (kmer_df, chrom, mode, samples):
     elif mode == "Q":
         normalization = kmer_df[kmer_df["CLUSTER"].isin([f"{chrom}_NORM_Q"])][samples].median()
     elif mode == "UNITIG":
-        ### placeholder for chromosomes without normalization kmers
+        ### placeholder
         normalization = pd.Series(23 * np.ones(len(samples)), index=samples)
     
     # apply normalization to each KM column

@@ -124,8 +124,14 @@ def plot_tagging_nodes(config, active_centromeres, linkage, tagging_nodes):
     plt.close(figure)
 
 
-def plot_tagging_kmers(config, kmer_counts, tagging_kmers, linkage, tagging_nodes):
-    """Plot the best tagging k-mer for each selected dendrogram node."""
+def plot_tagging_kmers(
+    config, kmer_counts, tagging_kmers, linkage, tagging_nodes, plotting_kmer_counts=None
+):
+    """Plot the best tagging k-mer for each selected dendrogram node.
+
+    ``plotting_kmer_counts`` may contain held-out haplotypes, provided its row
+    order matches the linkage used for the dendrogram.
+    """
 
     nodes_with_kmers = [
         node
@@ -138,6 +144,12 @@ def plot_tagging_kmers(config, kmer_counts, tagging_kmers, linkage, tagging_node
     heatmap_axis = plt.subplot(grid[1, 0])
     dendrogram = hierarchy.dendrogram(linkage, ax=tree_axis, orientation="top")
     coordinates = _dendrogram_coordinates(dendrogram)
+    plotting_counts = kmer_counts if plotting_kmer_counts is None else plotting_kmer_counts
+    if max(dendrogram["leaves"]) >= plotting_counts.shape[0]:
+        raise ValueError(
+            "The plotting k-mer table must have rows in the same order and include "
+            "every haplotype used to build linkage."
+        )
 
     heatmap_data = []
     heatmap_labels = []
@@ -154,7 +166,7 @@ def plot_tagging_kmers(config, kmer_counts, tagging_kmers, linkage, tagging_node
             best_kmer = label_kmers.sort_values(
                 by="MEAN_COUNT_IN", ascending=False
             )["KMER"].iloc[0]
-            heatmap_data.append(kmer_counts[best_kmer].to_numpy()[dendrogram["leaves"]])
+            heatmap_data.append(plotting_counts[best_kmer].to_numpy()[dendrogram["leaves"]])
             heatmap_labels.append("{}_{}".format(node.id, label))
 
         size = 20
