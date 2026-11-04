@@ -4,9 +4,11 @@ This directory contains HOROSCOPE-based centromere analyses for Pan-Cancer Analy
 
 | File | Description |
 | --- | --- |
-| `aggregate_horoscope_cancer_predictions.ipynb` | Joins HOROSCOPE predictions with cancer metadata for the PCAWG and PPCG cohorts. Prepares the cohort-level prediction tables used by the downstream filtering and arm-level analyses. |
+| `aggregate_horoscope_predictions_and_cancer_metadata.ipynb` | Joins HOROSCOPE predictions with cancer metadata for the PCAWG and PPCG cohorts. Prepares the cohort-level prediction tables used by the downstream filtering and arm-level analyses. |
 | `pcawg_filtering.ipynb` | Filters PCAWG predictions, including the removal of whole-genome-duplication samples and diagnostics of copy-neutral tumor/germline agreement. |
 | `ppcg_filtering.ipynb` | Applies the analogous quality-control and centromere-number calculations to PPCG predictions. |
 | `pcawg_arm_level_analysis.ipynb` | Classifies PCAWG chromosome and arm copy-number events and generates event landscapes. Fits Gaussian mixture models, incorporates CDR-position annotations, and examines event-specific centromere changes. |
 | `ppcg_arm_level_analysis.ipynb` | Performs the same analysis for the PPCG cohort. |
 | `Gao_CDR_position.tsv` | Provides chromosome- and copy-number-event-specific CDR position summaries . The arm-level notebooks use these annotations to stratify centromere-loss analyses. |
+| `cancer_cna_classification.ipynb` | Read CNA calling files and classifies chromosomal arms into lost, gained, normal or other rearrangement type. Classifies each sample/chromosome for later grouping. |
+| `check_cna_classifications.ipynb` | Checks agreement between normalization *k*-mer dosage and CNA classification. Write CN value per chromosome for later filtering. |
