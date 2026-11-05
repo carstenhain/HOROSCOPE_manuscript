@@ -86,7 +86,7 @@ def run_workflow(config):
     all_kmers = load_kmer_counts(config, active_centromeres)
 
     # Retain the variable k-mers used to calculate centromere similarity.
-    clustering_kmers = filter_clustering_kmers(all_kmers)
+    clustering_kmers = filter_clustering_kmers(all_kmers) # type: ignore
     print("Load full data with shape: {}".format(all_kmers.shape))
     print("Filtered data to receive array with shape: {}".format(clustering_kmers.shape))
     plot_kmer_count_distribution(config, all_kmers, clustering_kmers)
@@ -105,6 +105,7 @@ def run_workflow(config):
     filter_kmers(all_kmers, config)
     permissive_kmers = load_permissive_kmers(config)
     present_in = all_kmers.shape[0] - (all_kmers == 0).sum()
+    # prefiltering of tagging candidates to remove super-rare or super common k-mers --> performance reasons as there are no cluster > 90% and very small clusters
     tagging_candidates = all_kmers.loc[
         :, (present_in > 2) & (present_in < 0.9 * all_kmers.shape[0])
     ]

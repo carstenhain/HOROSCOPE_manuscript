@@ -51,15 +51,27 @@ def load_kmer_counts(config, active_centromeres):
     return counts.loc[:, (counts.shape[0] - (counts == 0).sum()) > 4]
     """
 
-def filter_clustering_kmers(kmer_counts):
-    """Remove rare, ubiquitous, and low-copy k-mers before clustering."""
+def filter_clustering_kmers(kmer_counts:pd.DataFrame) -> pd.DataFrame:
+    """
+    Remove rare, ubiquitous, and low-copy k-mers before clustering.
+
+    Parameters
+    ----------
+    kmer_counts : pd.DataFrame
+        DataFrame containing k-mer counts with samples as rows and k-mers as columns.
+
+    Returns
+    -------
+    pd.DataFrame
+        Filtered k-mer counts suitable for clustering.
+    """
 
     present_in = kmer_counts.shape[0] - (kmer_counts == 0).sum()
     return kmer_counts.loc[
-        :, (present_in > 2)
+        :, (present_in > 5) # rechecked used threshold for clustering
         & (present_in < 0.9 * kmer_counts.shape[0])
         & (kmer_counts.max() > 2),
-    ].copy()
+    ].copy() # type: ignore
 
 def load_kmer_list (kmer_list_path):
     """
