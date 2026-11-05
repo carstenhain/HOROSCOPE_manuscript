@@ -55,6 +55,7 @@ CDR/alpha satellite higher order repeat annotation/
 
 cancer/pcawg_prediction.tsv
 cancer/ppcg_prediction.tsv
+cancer/df_gmm_cohort.tsv
 
 plotting/plotting_data/df_gmm*
 train_test_splits/train_samples_1kGP_seed_0.txt
